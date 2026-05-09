@@ -1,0 +1,19 @@
+const mongoose = require('mongoose');
+require('dotenv').config();
+
+mongoose.connect('mongodb://localhost:27017/ms_tech_eletronic');
+
+const User = require('./models/User');
+
+async function clearUsers() {
+  try {
+    const result = await User.deleteMany({});
+    console.log(`✅ ${result.deletedCount} usuários removidos`);
+    mongoose.disconnect();
+  } catch (error) {
+    console.error('Erro:', error);
+    mongoose.disconnect();
+  }
+}
+
+clearUsers();
